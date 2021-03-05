@@ -6,5 +6,5 @@
 在左侧选择一个课程后观察后侧出现的文件  
 ![img](https://github.com/Wind-318/script/blob/main/Img/3.png)  
 点击“文件”，选择“标头”，得到url和cookie值后，打开选课.exe，输入url和cookie
-![img](https://github.com/Wind-318/script/blob/main/Img/4.png)  
+![img](https://github.com/Wind-318/script/blob/main/Img/6.png)  
 ![img](https://github.com/Wind-318/script/blob/main/Img/5.png)  
