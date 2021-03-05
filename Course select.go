@@ -46,6 +46,7 @@ func main() {
 		err := httpDo(url, cookie)
 		if err != nil {
 			fmt.Println("发现错误，终止运行!请检查url和cookie")
+			time.Sleep(3 * time.Second)
 			break
 		}
 		time.Sleep(3 * time.Second)
