@@ -55,6 +55,7 @@ func main() {
 		cookie[i] = std.Text()
 	}
 	for {
+<<<<<<< HEAD
 		for i := 0; i < value; i++ {
 			err := httpDo(url[i], cookie[i])
 			if err != nil {
@@ -62,6 +63,13 @@ func main() {
 				time.Sleep(3 * time.Second)
 				return
 			}
+=======
+		err := httpDo(url, cookie)
+		if err != nil {
+			fmt.Println("发现错误，终止运行!请检查url和cookie")
+			time.Sleep(3 * time.Second)
+			break
+>>>>>>> 26ec972a07c95b8badd0ef0b9983ee79df4c404b
 		}
 		time.Sleep(3 * time.Second)
 	}
