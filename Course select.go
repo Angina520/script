@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -34,17 +35,18 @@ func httpDo(url, cookie string) error {
 }
 
 func main() {
-	var n interface{}
+	var str string
 	fmt.Print("请先确定想选择几门课（只能为正整数）：")
 	std := bufio.NewScanner(os.Stdin)
 	std.Scan()
-	n = std.Text()
-	value, ok := n.(int)
-	if !ok {
+	str = std.Text()
+	value, err := strconv.Atoi(str)
+	if err != nil {
 		fmt.Println("类型错误")
 		time.Sleep(time.Second * 3)
 		return
 	}
+
 	url, cookie := make([]string, value), make([]string, value)
 	for i := 0; i < value; i++ {
 		fmt.Print("请输入url：")
@@ -55,7 +57,6 @@ func main() {
 		cookie[i] = std.Text()
 	}
 	for {
-<<<<<<< HEAD
 		for i := 0; i < value; i++ {
 			err := httpDo(url[i], cookie[i])
 			if err != nil {
@@ -63,14 +64,8 @@ func main() {
 				time.Sleep(3 * time.Second)
 				return
 			}
-=======
-		err := httpDo(url, cookie)
-		if err != nil {
-			fmt.Println("发现错误，终止运行!请检查url和cookie")
-			time.Sleep(3 * time.Second)
-			break
->>>>>>> 26ec972a07c95b8badd0ef0b9983ee79df4c404b
+			time.Sleep(time.Second)
 		}
-		time.Sleep(3 * time.Second)
+		time.Sleep(time.Second)
 	}
 }
