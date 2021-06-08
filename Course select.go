@@ -43,7 +43,7 @@ func main() {
 	value, err := strconv.Atoi(str)
 	if err != nil {
 		fmt.Println("类型错误")
-		time.Sleep(time.Second * 3)
+		time.Sleep(time.Hour)
 		return
 	}
 
@@ -61,7 +61,7 @@ func main() {
 			err := httpDo(url[i], cookie[i])
 			if err != nil {
 				fmt.Println("错误，终止运行!请检查url和cookie")
-				time.Sleep(3 * time.Second)
+				time.Sleep(time.Hour)
 				return
 			}
 			time.Sleep(time.Second)
