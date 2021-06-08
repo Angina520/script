@@ -14,12 +14,14 @@ func httpDo(url, cookie string) error {
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	req.Header.Set("Cookie", cookie)
 
 	resp, err := client.Do(req)
-	if err != nil {
+	if err != nil || resp.StatusCode != 200 {
+		fmt.Println(resp.Status, err)
 		return err
 	}
 
@@ -27,6 +29,7 @@ func httpDo(url, cookie string) error {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -41,8 +44,8 @@ func main() {
 	std.Scan()
 	str = std.Text()
 	value, err := strconv.Atoi(str)
-	if err != nil {
-		fmt.Println("类型错误")
+	if err != nil || value <= 0 {
+		fmt.Println("类型错误或值错误")
 		time.Sleep(time.Hour)
 		return
 	}
@@ -58,12 +61,7 @@ func main() {
 	}
 	for {
 		for i := 0; i < value; i++ {
-			err := httpDo(url[i], cookie[i])
-			if err != nil {
-				fmt.Println("错误，终止运行!请检查url和cookie")
-				time.Sleep(time.Hour)
-				return
-			}
+			httpDo(url[i], cookie[i])
 			time.Sleep(time.Second)
 		}
 		time.Sleep(time.Second)
