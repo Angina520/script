@@ -10,31 +10,30 @@ import (
 	"time"
 )
 
-func httpDo(url, cookie string) error {
-	client := &http.Client{}
-	req, err := http.NewRequest("POST", url, nil)
+func httpDo(url, cookie string) (string, error) {
+	client := &http.Client{
+		Timeout: time.Second * 3,
+	}
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		fmt.Println(err)
-		return err
+		return "", err
 	}
 	req.Header.Set("Cookie", cookie)
 
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
-		fmt.Println(resp.Status, err)
-		return err
+		return resp.Status, err
 	}
 
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println(err)
-		return err
+		return resp.Status, err
 	}
 
 	fmt.Println(string(body))
-	return nil
+	return resp.Status, nil
 }
 
 func main() {
@@ -61,7 +60,7 @@ func main() {
 	}
 	for {
 		for i := 0; i < value; i++ {
-			httpDo(url[i], cookie[i])
+			fmt.Println(httpDo(url[i], cookie[i]))
 			time.Sleep(time.Second)
 		}
 		time.Sleep(time.Second)
