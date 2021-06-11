@@ -11,15 +11,14 @@ import (
 )
 
 func httpDo(url, cookie string) (string, error) {
-	client := &http.Client{
-		Timeout: time.Second * 3,
-	}
+	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
 	}
 	req.Header.Set("Cookie", cookie)
 
+	fmt.Println("请求中...")
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		return resp.Status, err
